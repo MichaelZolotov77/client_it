@@ -2,8 +2,8 @@ import 'package:client_it/feature/auth/domain/auth_state/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AuthBuildar extends StatelessWidget {
-  const AuthBuildar({
+class AuthBuilder extends StatelessWidget {
+  const AuthBuilder({
     Key? key,
     required this.isNotAutorized,
     required this.isWaiting,
@@ -32,13 +32,13 @@ class AuthBuildar extends StatelessWidget {
           current.mapOrNull(error: (value) => value),
       listener: (context, state) {
         state.whenOrNull(
-          error: (error) => _showSkackBar,
+          error: (error) => _showSnackBar,
         );
       },
     );
   }
 
-  void _showSkackBar(BuildContext context, dynamic error) {
+  void _showSnackBar(BuildContext context, dynamic error) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(seconds: 5),
@@ -52,3 +52,17 @@ class AuthBuildar extends StatelessWidget {
     );
   }
 }
+
+
+/* 
+5.10 AuthBuilder автоматически перестраивает интерфейс в зависимости от того,
+авторизован пользователь или не авторизован. В билдере используем BlocConsumer,
+потому что нам нужен и listener и builder. В builder надо описать все наши
+состояния. В listener указываем, если ошибка. Показываем при этом нижний
+снекбар c задержкой 5 сек и 5ю максимальными линиями.
+Еще добавим условие, что будет слушать только тогда, когда предыдущее значение
+ошибки и текущее значение ошибки поменялось, чтобы не было постоянных ненужных
+перестроек. Используем listenWhen. Предыдуще значение ошибки должно быть другим.
+Если они разные, показываем этот снекбар, если повторяется, но снекбар
+больше не показываем.
+ */

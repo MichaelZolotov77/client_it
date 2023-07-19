@@ -11,3 +11,7 @@ class AuthState with _$AuthState {
 
   factory AuthState.error(dynamic error) = _AuthStateError;
 }
+
+
+//5.9 Для того, чтобы указать, что наш AuthState является частью AuthCubit,
+// пишем part of 'auth_cubit.dart'.

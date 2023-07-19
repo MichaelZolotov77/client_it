@@ -56,3 +56,9 @@ class MockAuthRepository implements AuthRepository {
     throw UnimplementedError();
   }
 }
+
+
+// 5.8 моковая реализация AuthRepository. Нас пока интересует только
+// signIn и signUp. signUp это регистрация. Задержка в две секунды нужна для
+// имитации обращения в сеть. Мы всегда здесь получаем константные значения.
+// Важно указать, что это тестовая реализация.

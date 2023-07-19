@@ -22,7 +22,7 @@ class MainAppBuilder implements AppBuilder {
 
 class _GlobalProviders extends StatelessWidget {
   const _GlobalProviders({Key? key, required this.child}) : super(key: key);
-  final Widget child;
+  final Widget child; // транзитом отправляем дальше вниз по дереву виджетов
 
   @override
   Widget build(BuildContext context) {
@@ -33,3 +33,15 @@ class _GlobalProviders extends StatelessWidget {
     ], child: child);
   }
 }
+
+
+/* 
+5.11 Инициализируем AuthCubit для того, чтобы его можно было использовать
+внизу по дереву виджетов, то есть глобально в всем приложении. Мы должны его
+инициализировать до того, как мы запускаем MaterialApp. В _GlobalProviders
+мы будем инициализировать все наши глобальные кубиты. Вместо контейнера будет
+MultiBlocProvider. Оборачиваем MaterialApp в _GlobalProviders. Таким образом, 
+всё наше приложение будет иметь доступ к AuthCubit. В  AuthCubit нужно передать
+репозиторий, который будем брать из локатора. Локатор нам вернет именно тот
+репозиторий, который был инициализирован при сборке.
+ */

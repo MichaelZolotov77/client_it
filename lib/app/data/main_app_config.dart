@@ -1,7 +1,7 @@
 import 'package:client_it/app/domain/app_config.dart';
 import 'package:injectable/injectable.dart';
 
-@Singleton(as: AppConfig)
+@Singleton(as: AppConfig) // синглтон инжектим как AppConfig
 @prod
 class ProdAppConfig implements AppConfig {
   @override
@@ -25,8 +25,10 @@ class DevAppConfig implements AppConfig {
 @test
 class TestAppConfig implements AppConfig {
   @override
-  String get baseUrl => "_";
+  String get baseUrl => "_"; // будем использовать моковые данные
 
   @override
   String get host => Environment.test;
 }
+
+// три конфигурации приложения: prod, dev, test.
