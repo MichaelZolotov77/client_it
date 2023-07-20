@@ -1,5 +1,6 @@
 import 'package:client_it/app/di/init_di.dart';
 import 'package:client_it/app/domain/app_builder.dart';
+import 'package:client_it/app/ui/root_screen.dart';
 import 'package:client_it/feature/auth/domain/auth_repository.dart';
 import 'package:client_it/feature/auth/domain/auth_state/auth_cubit.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,7 @@ class MainAppBuilder implements AppBuilder {
   Widget buildApp() {
     return const _GlobalProviders(
       child: MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: Text("Hello"),
-          ),
-        ),
+        home: RootScreen(),
       ),
     );
   }
@@ -44,4 +41,5 @@ MultiBlocProvider. Оборачиваем MaterialApp в _GlobalProviders. Та�
 всё наше приложение будет иметь доступ к AuthCubit. В  AuthCubit нужно передать
 репозиторий, который будем брать из локатора. Локатор нам вернет именно тот
 репозиторий, который был инициализирован при сборке.
+5.12 Вместо hello добавляем RootScreen.
  */

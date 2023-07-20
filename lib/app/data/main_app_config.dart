@@ -15,7 +15,7 @@ class ProdAppConfig implements AppConfig {
 @dev
 class DevAppConfig implements AppConfig {
   @override
-  String get baseUrl => "localhost";
+  String get baseUrl => "https://localhost:8080";
 
   @override
   String get host => Environment.dev;
@@ -25,7 +25,8 @@ class DevAppConfig implements AppConfig {
 @test
 class TestAppConfig implements AppConfig {
   @override
-  String get baseUrl => "_"; // будем использовать моковые данные
+  String get baseUrl =>
+      "https://localhost:8080"; // будем использовать моковые данные
 
   @override
   String get host => Environment.test;
