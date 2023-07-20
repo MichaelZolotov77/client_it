@@ -1,3 +1,5 @@
+import 'package:client_it/app/ui/components/app_text_button.dart';
+import 'package:client_it/app/ui/components/app_text_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -24,36 +26,34 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextFormField(
-                  validator: emptyValidator,
-                  maxLines: 1,
+                AppTextField(
                   controller: controllerLogin,
-                  decoration: const InputDecoration(
-                    labelText: 'логин',
-                    border: OutlineInputBorder(),
-                  ),
+                  labelText: "логин",
                 ),
                 const SizedBox(height: 16),
-                TextFormField(
-                  validator: emptyValidator,
-                  maxLines: 1,
+                AppTextField(
+                  obscureText: true,
                   controller: controllerPassword,
-                  decoration: const InputDecoration(
-                    labelText: 'пароль',
-                    border: OutlineInputBorder(),
-                  ),
+                  labelText: "пароль",
                 ),
                 const SizedBox(height: 16),
-                ElevatedButton(
+                AppTextButton(
                   onPressed: () {
                     if (formKey.currentState?.validate() == true) {
                       print("OK");
                     }
                   },
-                  style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all<Size>(
-                          const Size(double.maxFinite, 40))),
-                  child: const Text("Войти"),
+                  text: "войти",
+                ),
+                const SizedBox(height: 16),
+                AppTextButton(
+                  backgroundColor: Colors.grey,
+                  onPressed: () {
+                    if (formKey.currentState?.validate() == true) {
+                      print("OK");
+                    }
+                  },
+                  text: "регистрация",
                 ),
               ],
             ),
@@ -62,14 +62,8 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
-  String? emptyValidator(String? value) {
-    if (value?.isEmpty == true) {
-      return "Обязательное поле";
-    }
-    return null;
-  }
 }
 
 // экран авторизации и регистрации
 // 5.13 верстка экрана
+// 5.14 перенос тектовых полей и кнопок в отдельные виджеты
