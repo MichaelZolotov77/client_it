@@ -32,7 +32,7 @@ class AuthBuilder extends StatelessWidget {
           current.mapOrNull(error: (value) => value),
       listener: (context, state) {
         state.whenOrNull(
-          error: (error) => _showSnackBar,
+          error: (error) => _showSnackBar(context, error),
         );
       },
     );
