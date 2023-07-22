@@ -1,22 +1,23 @@
 import 'package:client_it/app/ui/components/app_text_button.dart';
 import 'package:client_it/app/ui/components/app_text_field.dart';
 import 'package:client_it/feature/auth/domain/auth_state/auth_cubit.dart';
-import 'package:client_it/feature/auth/ui/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({super.key});
 
   final controllerLogin = TextEditingController();
+  final controllerEmail = TextEditingController();
   final controllerPassword = TextEditingController();
+  final controllerPassword2 = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("LoginScreen"),
+        title: const Text("RegisterScreen"),
       ),
       body: Form(
         key: formKey,
@@ -35,25 +36,34 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 AppTextField(
+                  controller: controllerEmail,
+                  labelText: "email",
+                ),
+                const SizedBox(height: 16),
+                AppTextField(
                   obscureText: true,
                   controller: controllerPassword,
                   labelText: "пароль",
                 ),
                 const SizedBox(height: 16),
-                AppTextButton(
-                  onPressed: () {
-                    if (formKey.currentState?.validate() == true) {
-                      _onTapToSingIn(context.read<AuthCubit>());
-                    }
-                  },
-                  text: "войти",
+                AppTextField(
+                  obscureText: true,
+                  controller: controllerPassword2,
+                  labelText: "повторите пароль",
                 ),
                 const SizedBox(height: 16),
                 AppTextButton(
                   backgroundColor: Colors.blueGrey,
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => RegisterScreen()));
+                    if (formKey.currentState?.validate() != true) return;
+
+                    if (controllerPassword2.text != controllerPassword.text) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Пароли не совпадают")));
+                    } else {
+                      _onTapToSingUp(context.read<AuthCubit>());
+                      Navigator.of(context).pop();
+                    }
                   },
                   text: "регистрация",
                 ),
@@ -65,9 +75,10 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void _onTapToSingIn(AuthCubit authCubit) => authCubit.signIn(
+  void _onTapToSingUp(AuthCubit authCubit) => authCubit.signUp(
         username: controllerLogin.text,
         password: controllerPassword.text,
+        email: controllerEmail.text,
       );
 }
 
