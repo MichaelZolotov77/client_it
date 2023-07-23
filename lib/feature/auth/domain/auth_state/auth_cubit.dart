@@ -1,6 +1,5 @@
 import 'package:client_it/feature/auth/domain/auth_repository.dart';
 import 'package:client_it/feature/auth/domain/entities/user_entity/user_entity.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
@@ -62,7 +61,12 @@ class AuthCubit extends HydratedCubit<AuthState> {
 
   @override
   Map<String, dynamic>? toJson(AuthState state) {
-    return state.toJson();
+    return state
+            .whenOrNull(
+              authorized: (userEntity) => AuthState.authorized(userEntity),
+            )
+            ?.toJson() ??
+        AuthState.notAuthorized().toJson();
   }
 }
 
@@ -79,3 +83,5 @@ class AuthCubit extends HydratedCubit<AuthState> {
 
 //5.11 В конструкторе будем принимать AuthRepository. Здесь не используется
 // какая-то конкретная реализация, а используется абстракция.
+
+// 5.21 Будут сохраняться стейты только тогда, когда пользователь авторизован
