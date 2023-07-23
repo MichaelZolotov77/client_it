@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AuthBuilder extends StatelessWidget {
   const AuthBuilder({
     Key? key,
-    required this.isNotAutorized,
+    required this.isNotAuthorized,
     required this.isWaiting,
     required this.isAuthorized,
   }) : super(key: key);
 
-  final WidgetBuilder isNotAutorized;
+  final WidgetBuilder isNotAuthorized;
   final WidgetBuilder isWaiting;
   final ValueWidgetBuilder isAuthorized;
 
@@ -19,10 +19,10 @@ class AuthBuilder extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       builder: (context, state) {
         return state.when(
-          notAuthorized: () => isNotAutorized(context),
+          notAuthorized: () => isNotAuthorized(context),
           authorized: (userEntity) => isAuthorized(context, userEntity, this),
           waiting: () => isWaiting(context),
-          error: (error) => isNotAutorized(context),
+          error: (error) => isNotAuthorized(context),
         );
       },
       listenWhen: (previous, current) =>
