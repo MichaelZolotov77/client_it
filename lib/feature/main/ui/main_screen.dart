@@ -20,7 +20,7 @@ class MainScreen extends StatelessWidget {
         title: const Text("MainScreen"),
         actions: [
           IconButton(
-            onPressed: () => context.read<AuthCubit>().refreshToken(),
+            onPressed: () => context.read<AuthCubit>().getProfile(),
             icon: const Icon(Icons.refresh),
           ),
           IconButton(

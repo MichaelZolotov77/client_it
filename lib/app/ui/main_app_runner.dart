@@ -12,7 +12,6 @@ class MainAppRunner implements AppRunner {
 
   @override
   Future<void> preloadData() async {
-    WidgetsFlutterBinding.ensureInitialized(); //инициализания связок
     // init app инициализация
     // init di внедрение зависимостей
     initDi(env);
@@ -21,11 +20,10 @@ class MainAppRunner implements AppRunner {
 
   @override
   Future<void> run(AppBuilder appBuilder) async {
-    await preloadData();
     WidgetsFlutterBinding.ensureInitialized();
     HydratedBloc.storage = await HydratedStorage.build(
         storageDirectory: await getApplicationDocumentsDirectory());
-
+    await preloadData();
     runApp(appBuilder.buildApp());
   }
 }
