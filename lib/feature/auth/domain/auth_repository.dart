@@ -28,7 +28,7 @@ abstract class AuthRepository {
   });
 
   //обновление токена
-  Future<dynamic> refreshToken({required String refreshToken});
+  Future<dynamic> refreshToken({String? refreshToken});
 }
 
 
